@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sasso, Carta, Forbice</title>
+    <style>
+        body {
+            background-color: #112233;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            /* display: block; */
+            margin: 0;
+            /* padding: 0%; */
+            
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+        }
+
+        main {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* *{
+            border: 2px solid green;
+        } */
+
+        .footer {
+            height: 32px;
+            justify-content: center;
+            display: flex;
+            /* align-items: center; */
+            background-color: #1e4166;
+            margin: 0;
+        }
+ 
+        .choice-buttons {
+            margin-top: 20px;
+        }
+
+        .choice-buttons button {
+            margin: 10px;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 18px;
+            background-color: #162b41;
+
+        }
+
+        .choice-buttons button:hover {
+            
+            background-color: #163641;
+
+        }
+
+        .game-images {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .game-images img {
+            margin: 10px;
+            width: 150px;
+            height: 150px;
+            border-radius: 12px;
+        }
+
+        .results {
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Sasso, Carta, Forbice</h1>
+    </header>
+
+    <main>
+        <p>Scegli sasso, carta o forbice:</p>
+        <div class="choice-buttons">
+            <button onclick="play('sasso')">Sasso</button>
+            <button onclick="play('carta')">Carta</button>
+            <button onclick="play('forbice')">Forbice</button>
+        </div>
+
+        <div class="game-images" id="gameImages">
+        </div>
+
+        <div class="results">
+            <h3>Risultati:</h3>
+            <p>Vittorie: <span id="wins">0</span></p>
+            <p>Sconfitte: <span id="losses">0</span></p>
+        </div>
+    </main>
+
+    <script>
+        function play(userChoice) {
+            // Genera la scelta casuale del computer
+            var choices = ['sasso', 'carta', 'forbice'];
+            var randomIndex = Math.floor(Math.random() * choices.length);
+            var computerChoice = choices[randomIndex];
+
+            // Mostra le immagini delle scelte
+            var gameImages = document.getElementById('gameImages');
+            gameImages.innerHTML = `
+                <img src="${userChoice}.png" alt="Scelta utente">
+                <img src="${computerChoice}.png" alt="Scelta computer">
+            `;
+
+            // Aggiorna i risultati del gioco
+            var wins = document.getElementById('wins');
+            var losses = document.getElementById('losses');
+
+            if (userChoice === computerChoice) {
+                // Pareggio
+            } else if (
+                (userChoice === 'sasso' && computerChoice === 'forbice') ||
+                (userChoice === 'carta' && computerChoice === 'sasso') ||
+                (userChoice === 'forbice' && computerChoice === 'carta')
+            ) {
+                // Vittoria dell'utente
+                wins.textContent = parseInt(wins.textContent) + 1;
+            } else {
+                // Sconfitta dell'utente
+                losses.textContent = parseInt(losses.textContent) + 1;
+            }
+        }
+    </script>
+    <div class="footer">
+        The Odin Project ❤️
+    </div>
+    <i class="footer">
+        by jmax
+    </i>
+</body>
+
+</html>

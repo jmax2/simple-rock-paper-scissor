@@ -11,18 +11,19 @@
             /* display: block; */
             margin: 0;
             /* padding: 0%; */
-            
+
         }
 
         header {
             text-align: center;
-            padding: 20px;
+            padding: 10px;
             font-size: 24px;
+            border-bottom: #112233 2px solid;
         }
 
         main {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 30px;
         }
 
         /* *{
@@ -37,7 +38,7 @@
             background-color: #1e4166;
             margin: 0;
         }
- 
+
         .choice-buttons {
             margin-top: 20px;
         }
@@ -52,7 +53,7 @@
         }
 
         .choice-buttons button:hover {
-            
+
             background-color: #163641;
 
         }
@@ -92,15 +93,32 @@
 
         <div class="game-images" id="gameImages">
         </div>
+        <div class="reset choice-buttons" id="reset">
+        </div>
 
         <div class="results">
             <h3>Risultati:</h3>
             <p>Vittorie: <span id="wins">0</span></p>
             <p>Sconfitte: <span id="losses">0</span></p>
+            <p>Pareggi: <span id="draws">0</span></p>
         </div>
     </main>
 
     <script>
+        function reset() {
+            var gameImages = document.getElementById('gameImages');
+            gameImages.innerHTML = '';
+
+            // Azzera i risultati del gioco
+            var wins = document.getElementById('wins');
+            var losses = document.getElementById('losses');
+            var draws = document.getElementById('draws');
+
+            wins.textContent = 0;
+            losses.textContent = 0;
+            draws.textContent = 0;
+        }
+
         function play(userChoice) {
             // Genera la scelta casuale del computer
             var choices = ['sasso', 'carta', 'forbice'];
@@ -117,9 +135,12 @@
             // Aggiorna i risultati del gioco
             var wins = document.getElementById('wins');
             var losses = document.getElementById('losses');
+            var draws = document.getElementById('draws');
 
             if (userChoice === computerChoice) {
                 // Pareggio
+                draws.textContent = parseInt(wins.textContent) + 1;
+
             } else if (
                 (userChoice === 'sasso' && computerChoice === 'forbice') ||
                 (userChoice === 'carta' && computerChoice === 'sasso') ||
@@ -131,6 +152,9 @@
                 // Sconfitta dell'utente
                 losses.textContent = parseInt(losses.textContent) + 1;
             }
+
+            var btn = document.getElementById('reset');
+            btn.innerHTML = `<button onclick="reset()">Reset</button>`;
         }
     </script>
     <div class="footer">
